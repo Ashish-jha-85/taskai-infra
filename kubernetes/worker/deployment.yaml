@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskai-worker
+  namespace: taskai
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taskai-worker
+  template:
+    metadata:
+      labels:
+        app: taskai-worker
+    spec:
+      containers:
+      - name: worker
+        image: ashishjha1421/taskai-worker:latest
+        envFrom:
+        - secretRef:
+            name: taskai-secrets
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
