@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Ashish-jha-85/taskai-infra
+    repoURL: https://github.com/Ashish-jha-85/taskai-infra.git
     targetRevision: HEAD
     path: kubernetes
   destination:

@@ -1,42 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: taskai-backend
   namespace: taskai
+
 spec:
   replicas: 2
+
   selector:
     matchLabels:
       app: taskai-backend
+
   template:
     metadata:
       labels:
         app: taskai-backend
+
     spec:
       containers:
-      - name: backend
-        image: ashishjha1421/taskai-backend:latest
-        ports:
-        - containerPort: 5000
-        envFrom:
-        - secretRef:
-            name: taskai-secrets
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 15
-          periodSeconds: 10
+        - name: backend
+
+          image: ashishjha1421/taskai-backend:latest
+
+          ports:
+            - containerPort: 5000
+
+          envFrom:
+            - secretRef:
+                name: taskai-secrets
+
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+
+            initialDelaySeconds: 10
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+
+            initialDelaySeconds: 15
+            periodSeconds: 10
